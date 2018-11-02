@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "652063303858",
+    "firebase_url": "https://my-kost.firebaseio.com",
+    "project_id": "my-kost",
+    "storage_bucket": "my-kost.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:652063303858:android:00ea8a084fb95769",
+        "android_client_info": {
+          "package_name": "iqbal.mykost"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "652063303858-3mnq3hiufdioskn4slq6lgghfa05ap35.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "iqbal.mykost",
+            "certificate_hash": "ea6e4d451b776339d2b6ce82d3e7bf3bcf25299f"
+          }
+        },
+        {
+          "client_id": "652063303858-3abqhms8lucales1evt0orhar6igh2f5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBH_5nIs_bRoxK06wXVQRndhVi4BeAGJ44"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "652063303858-3abqhms8lucales1evt0orhar6igh2f5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

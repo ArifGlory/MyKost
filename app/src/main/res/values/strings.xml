@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">My Kost</string>
+    <string name="user_profile_photo">http://igcdn-photos-f-a.akamaihd.net/hphotos-ak-xpa1/t51.2885-19/929118_455075441302693_1605108410_a.jpg</string>
+    <string-array name="user_photos">
+        <item>https://res.cloudinary.com/tapisdev/image/upload/v1531442590/badgeBetaTester.png</item>
+        <item>https://res.cloudinary.com/tapisdev/image/upload/v1531442590/badgeSkyAngel.png</item>
+        <item>https://res.cloudinary.com/tapisdev/image/upload/v1531452721/badgeKing.png</item>
+    </string-array>
+    <string name="title_activity_home">HomeActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string-array name="listFilter">
+        <item>Filter dari Termurah</item>
+        <item>Filter dari Fasilitas Terbaik</item>
+        <item>Filter Terdekat ke Kampus</item>
+    </string-array>
+
+    <string-array name="listKampus">
+        <item>Unila</item>
+        <item>Universitas Teknokrat Indonesia</item>
+        <item>Darmajaya</item>
+        <item>UBL</item>
+        <item>DCC Kedaton</item>
+        <item>Umitra</item>
+        <item>Itera</item>
+        <item>Universitas Saburai</item>
+        <item>Polinela</item>
+        <item>Poltekkes</item>
+    </string-array>
+
+
+    <string name="title_activity_pemilik_kos">PemilikKosActivity</string>
+    <string name="title_activity_maps_kost">Map</string>
+</resources>
