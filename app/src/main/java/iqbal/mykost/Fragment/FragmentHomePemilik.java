@@ -80,8 +80,8 @@ public class FragmentHomePemilik extends Fragment {
         btnTambahKos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getActivity(), UploadGambarKosan.class);
-                i.putExtra("keyKosan","-LQI-dUIoEUi4Z7O20b_");
+                Intent i = new Intent(getActivity(), TambahKosanActivity.class);
+               // i.putExtra("keyKosan","-LQI-dUIoEUi4Z7O20b_");
                 startActivity(i);
             }
         });

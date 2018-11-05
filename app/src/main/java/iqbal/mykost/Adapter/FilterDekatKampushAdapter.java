@@ -22,17 +22,16 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import iqbal.mykost.Album;
 import iqbal.mykost.DetailKosanActivity;
 import iqbal.mykost.Fragment.FragmentHome;
-import iqbal.mykost.HomeActivity;
+import iqbal.mykost.Kelas.Kosan;
 import iqbal.mykost.R;
-import iqbal.mykost.Album;
-import iqbal.mykost.SharedVariable;
 
 /**
  * Created by Ravi Tamada on 18/05/16.
  */
-public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHolder> {
+public class FilterDekatKampushAdapter extends RecyclerView.Adapter<FilterDekatKampushAdapter.MyViewHolder> {
 
     private Context mContext;
     DatabaseReference ref,refUser;
@@ -54,6 +53,8 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
     public static List<String> list_isLemari = new ArrayList();
     public static List<String> list_alamat = new ArrayList();
 
+    private List<Kosan> kosanList;
+
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView title, count,jmlSayur;
@@ -69,13 +70,14 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
     }
 
 
-    public AlbumsAdapter(final Context mContext) {
+    public FilterDekatKampushAdapter(final Context mContext) {
         this.mContext = mContext;
         this.albumList = albumList;
         Firebase.setAndroidContext(this.mContext);
         FirebaseApp.initializeApp(mContext.getApplicationContext());
         ref = FirebaseDatabase.getInstance().getReference();
         fAuth = FirebaseAuth.getInstance();
+        kosanList = new ArrayList<>();
 
         ref.child("kosan").addValueEventListener(new ValueEventListener() {
             @Override
@@ -95,6 +97,10 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
                 list_isLemari.clear();
                 list_latlon.clear();
                 list_alamat.clear();
+                int hargaKosan = 0;
+                String temp = "";
+                int index = 0;
+                kosanList.clear();
 
                 FragmentHome.progressBar.setVisibility(View.VISIBLE);
                 for (DataSnapshot child : dataSnapshot.getChildren()){
@@ -114,21 +120,36 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
                     String isWifi = child.child("isWifi").getValue().toString();
                     String alamat = child.child("alamat").getValue().toString();
 
-                        list_sisaKosong.add(sisaKamar);
-                        list_nama.add(namaKosan);
-                        list_harga.add(harga);
-                        list_downloadURL.add(downloadUrl);
-                        list_key.add(key);
-                        list_nearKampus.add(nearKampus);
-                        list_latlon.add(latlon);
-                        list_isNearKampus.add(isDekatKampus);
-                        list_isWifi.add(isWifi);
-                        list_isKmrMandi.add(isKmrMandi);
-                        list_isAc.add(isAc);
-                        list_isKasur.add(isKasur);
-                        list_isLemari.add(isLemari);
-                        list_alamat.add(alamat);
+                    Kosan kosan = new Kosan(namaKosan,alamat,latlon,harga,isAc,isKmrMandi,isKasur,isLemari,
+                            isDekatKampus,nearKampus,downloadUrl,sisaKamar,isWifi,uidPemilik);
 
+
+                    if (isDekatKampus.equals("off")){
+                        kosanList.add(kosan);
+                        list_key.add(key);
+                        temp = "off";
+                    }else {
+
+                        if (index == 0){
+                            kosanList.add(kosan);
+                            list_key.add(key);
+                            temp = "on";
+                        }else {
+                            Kosan kosanTemp = kosanList.get(index - 1);
+                            String keyTemp = list_key.get(index - 1).toString();
+
+                            kosanList.remove(index - 1);
+                            kosanList.add(kosan);
+                            kosanList.add(kosanTemp);
+
+                            list_key.remove(index - 1);
+                            list_key.add(key);
+                            list_key.add(keyTemp);
+                        }
+                    }
+
+
+                       index++;
                 }
                 FragmentHome.progressBar.setVisibility(View.GONE);
                 notifyDataSetChanged();
@@ -155,13 +176,13 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
 
-        holder.title.setText(list_nama.get(position).toString());
-        holder.count.setText("Rp. "+list_harga.get(position).toString());
-        holder.jmlSayur.setText("Sisa ksong : "+list_sisaKosong.get(position).toString());
+        holder.title.setText(kosanList.get(position).getNamaKos().toString());
+        holder.count.setText("Rp. "+kosanList.get(position).getHarga().toString());
+        holder.jmlSayur.setText("Sisa ksong : "+kosanList.get(position).getSisaKamar().toString());
 
 
         // loading album cover using Glide library
-        Glide.with(mContext).load(list_downloadURL.get(position).toString())
+        Glide.with(mContext).load(kosanList.get(position).getDownloadUrl().toString())
                 .into(holder.thumbnail);
 
         holder.title.setTag(holder);
@@ -181,20 +202,20 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
             MyViewHolder viewHolder = (MyViewHolder) view.getTag();
             int position = viewHolder.getPosition();
             Intent i = new Intent(mContext.getApplicationContext(), DetailKosanActivity.class);
-            i.putExtra("nama",list_nama.get(position).toString());
-            i.putExtra("harga",list_harga.get(position).toString());
-            i.putExtra("url",list_downloadURL.get(position).toString());
+            i.putExtra("nama",kosanList.get(position).getNamaKos().toString());
+            i.putExtra("harga",kosanList.get(position).getHarga().toString());
+            i.putExtra("url",kosanList.get(position).getDownloadUrl().toString());
             i.putExtra("key",list_key.get(position).toString());
-            i.putExtra("sisaKosong",list_sisaKosong.get(position).toString());
-            i.putExtra("nearKampus",list_nearKampus.get(position).toString());
-            i.putExtra("latlon",list_latlon.get(position).toString());
-            i.putExtra("alamat",list_alamat.get(position).toString());
-            i.putExtra("isAc",list_isAc.get(position).toString());
-            i.putExtra("isLemari",list_isLemari.get(position).toString());
-            i.putExtra("isKasur",list_isKasur.get(position).toString());
-            i.putExtra("isWifi",list_isWifi.get(position).toString());
-            i.putExtra("isKmrMandi",list_isKmrMandi.get(position).toString());
-            i.putExtra("isNearKampus",list_isNearKampus.get(position).toString());
+            i.putExtra("sisaKosong",kosanList.get(position).getSisaKamar().toString());
+            i.putExtra("nearKampus",kosanList.get(position).getNearKampus().toString());
+            i.putExtra("latlon",kosanList.get(position).getLatlon().toString());
+            i.putExtra("alamat",kosanList.get(position).getAlamat().toString());
+            i.putExtra("isAc",kosanList.get(position).getIsAC().toString());
+            i.putExtra("isLemari",kosanList.get(position).getIsLemari().toString());
+            i.putExtra("isKasur",kosanList.get(position).getIsKasur().toString());
+            i.putExtra("isWifi",kosanList.get(position).getIsWifi().toString());
+            i.putExtra("isKmrMandi",kosanList.get(position).getIsKmrMandi().toString());
+            i.putExtra("isNearKampus",kosanList.get(position).getIsDekatKampus().toString());
             mContext.startActivity(i);
 
 
@@ -202,7 +223,7 @@ public class AlbumsAdapter extends RecyclerView.Adapter<AlbumsAdapter.MyViewHold
     };
 
     public int getItemCount() {
-        return list_nama == null ? 0 : list_nama.size();
+        return kosanList == null ? 0 : kosanList.size();
        // return 5;
     }
 

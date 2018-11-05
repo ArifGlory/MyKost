@@ -114,6 +114,8 @@ public class HomeActivity extends AppCompatActivity
 
         if (id == R.id.nav_home) {
             // Handle the camera action
+            Intent i = new Intent(getApplicationContext(),HomeActivity.class);
+            startActivity(i);
         } else if (id == R.id.nav_loginPemilik) {
             Intent i = new Intent(getApplicationContext(),MainActivity.class);
             startActivity(i);

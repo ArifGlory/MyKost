@@ -140,6 +140,7 @@ public class PemilikKosActivity extends AppCompatActivity
             startActivity(i);
         } else if (id == R.id.nav_logout) {
             fAuth.signOut();
+            SharedVariable.userID = "";
             Intent i = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(i);
         }

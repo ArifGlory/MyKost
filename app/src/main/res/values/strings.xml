@@ -16,7 +16,7 @@
     <string-array name="listFilter">
         <item>Filter dari Termurah</item>
         <item>Filter dari Fasilitas Terbaik</item>
-        <item>Filter Terdekat ke Kampus</item>
+        <item>Filter Dekat ke Kampus</item>
     </string-array>
 
     <string-array name="listKampus">

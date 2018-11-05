@@ -9,11 +9,13 @@ import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -31,6 +33,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.List;
 
 import iqbal.mykost.Adapter.AlbumsAdapter;
+import iqbal.mykost.Adapter.FilterDekatKampushAdapter;
+import iqbal.mykost.Adapter.FilterFasilitasAdapter;
+import iqbal.mykost.Adapter.FilterTermurahAdapter;
 import iqbal.mykost.Album;
 import iqbal.mykost.R;
 import iqbal.mykost.SharedVariable;
@@ -54,7 +59,11 @@ public class FragmentHome extends Fragment {
     private FirebaseAuth.AuthStateListener fStateListener;
     private RecyclerView recyclerView;
     private AlbumsAdapter adapter;
+    String filter;
     private List<Album> albumList;
+    FilterTermurahAdapter filterTermurahAdapter;
+    FilterFasilitasAdapter filterFasilitasAdapter;
+    FilterDekatKampushAdapter filterDekatKampushAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,6 +79,9 @@ public class FragmentHome extends Fragment {
         sp_filter = (Spinner) view.findViewById(R.id.sp_filter);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         adapter = new AlbumsAdapter(getActivity());
+        filterTermurahAdapter = new FilterTermurahAdapter(getActivity());
+        filterFasilitasAdapter = new FilterFasilitasAdapter(getActivity());
+        filterDekatKampushAdapter = new FilterDekatKampushAdapter(getActivity());
 
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 3);
         recyclerView.setLayoutManager(mLayoutManager);
@@ -77,6 +89,37 @@ public class FragmentHome extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
 
+        sp_filter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                filter= adapterView.getItemAtPosition(i).toString();
+
+                if (filter.equals("Filter dari Termurah")){
+                    RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 3);
+                    recyclerView.setLayoutManager(mLayoutManager);
+                    recyclerView.addItemDecoration(new GridSpacingItemDecoration(3, dpToPx(1), true));
+                    recyclerView.setItemAnimator(new DefaultItemAnimator());
+                    recyclerView.setAdapter(filterTermurahAdapter);
+                }else if (filter.equals("Filter dari Fasilitas Terbaik")){
+                    RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 3);
+                    recyclerView.setLayoutManager(mLayoutManager);
+                    recyclerView.addItemDecoration(new GridSpacingItemDecoration(3, dpToPx(1), true));
+                    recyclerView.setItemAnimator(new DefaultItemAnimator());
+                    recyclerView.setAdapter(filterFasilitasAdapter);
+                }else  if (filter.equals("Filter Dekat ke Kampus")){
+                    RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getActivity(), 3);
+                    recyclerView.setLayoutManager(mLayoutManager);
+                    recyclerView.addItemDecoration(new GridSpacingItemDecoration(3, dpToPx(1), true));
+                    recyclerView.setItemAnimator(new DefaultItemAnimator());
+                    recyclerView.setAdapter(filterDekatKampushAdapter);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
         return view;
     }

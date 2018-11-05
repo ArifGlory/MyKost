@@ -38,4 +38,116 @@ public class Kosan {
         this.isWifi = isWifi;
         this.uidPemilik = uidPemilik;
     }
+
+    public String getNamaKos() {
+        return namaKos;
+    }
+
+    public void setNamaKos(String namaKos) {
+        this.namaKos = namaKos;
+    }
+
+    public String getAlamat() {
+        return alamat;
+    }
+
+    public void setAlamat(String alamat) {
+        this.alamat = alamat;
+    }
+
+    public String getLatlon() {
+        return latlon;
+    }
+
+    public void setLatlon(String latlon) {
+        this.latlon = latlon;
+    }
+
+    public String getHarga() {
+        return harga;
+    }
+
+    public void setHarga(String harga) {
+        this.harga = harga;
+    }
+
+    public String getIsAC() {
+        return isAC;
+    }
+
+    public void setIsAC(String isAC) {
+        this.isAC = isAC;
+    }
+
+    public String getIsKmrMandi() {
+        return isKmrMandi;
+    }
+
+    public void setIsKmrMandi(String isKmrMandi) {
+        this.isKmrMandi = isKmrMandi;
+    }
+
+    public String getIsKasur() {
+        return isKasur;
+    }
+
+    public void setIsKasur(String isKasur) {
+        this.isKasur = isKasur;
+    }
+
+    public String getIsLemari() {
+        return isLemari;
+    }
+
+    public void setIsLemari(String isLemari) {
+        this.isLemari = isLemari;
+    }
+
+    public String getIsWifi() {
+        return isWifi;
+    }
+
+    public void setIsWifi(String isWifi) {
+        this.isWifi = isWifi;
+    }
+
+    public String getIsDekatKampus() {
+        return isDekatKampus;
+    }
+
+    public void setIsDekatKampus(String isDekatKampus) {
+        this.isDekatKampus = isDekatKampus;
+    }
+
+    public String getNearKampus() {
+        return nearKampus;
+    }
+
+    public void setNearKampus(String nearKampus) {
+        this.nearKampus = nearKampus;
+    }
+
+    public String getDownloadUrl() {
+        return downloadUrl;
+    }
+
+    public void setDownloadUrl(String downloadUrl) {
+        this.downloadUrl = downloadUrl;
+    }
+
+    public String getSisaKamar() {
+        return sisaKamar;
+    }
+
+    public void setSisaKamar(String sisaKamar) {
+        this.sisaKamar = sisaKamar;
+    }
+
+    public String getUidPemilik() {
+        return uidPemilik;
+    }
+
+    public void setUidPemilik(String uidPemilik) {
+        this.uidPemilik = uidPemilik;
+    }
 }

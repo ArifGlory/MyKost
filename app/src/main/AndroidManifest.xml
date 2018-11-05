@@ -64,8 +64,10 @@
         <activity
             android:name=".MapsKostActivity"
             android:label="@string/title_activity_maps_kost" />
-        <activity android:name=".UploadGambarKosan"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".UploadGambarKosan"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".DetailKosanActivity"></activity>
     </application>
 
 </manifest>
